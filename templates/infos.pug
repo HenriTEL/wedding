@@ -1,0 +1,24 @@
+extends main.pug
+
+block content
+  h1.header Infos pratiques
+  p Le mariage aura lieu le <strong>#{date}</strong>.
+  table.table
+    thead
+      tr
+        th(scope="col")
+        th(scope="col") Heure
+        th(scope="col") Lieu
+    tbody
+      each event in events
+        tr
+          th(scope="row") !{event.name}
+          td !{event.hour}
+          td !{event.address}
+
+  h1.header Itinéraires
+  p
+    each direction in directions
+      a(href="#{direction.link}") #{direction.text}
+      br
+  img.img-fluid(src='/img/itineraire.jpeg')

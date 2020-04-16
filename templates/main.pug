@@ -1,0 +1,11 @@
+doctype html
+include ../vars.pug
+html(lang="fr")
+  include component/head.pug
+  body
+    include component/navbar.pug
+    .container
+        block content
+    script(src='/jquery-3.4.1.slim.min.js')
+    script(src='/popper.min.js')
+    script(src='/bootstrap-4.4.1-dist/js/bootstrap.min.js')

@@ -1,0 +1,10 @@
+@use 'not-found';
+
+li.card {
+    width: 18rem;
+    height: 26rem;
+
+    img {
+        max-height: 360px;
+    }
+}

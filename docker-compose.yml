@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+
+  api:
+    build: ./backend
+    volumes:
+    - ./backend/api:/api:ro
+    - ./backend/db:/db
+    command: --host=0.0.0.0
+    ports:
+      - "127.0.0.1:5000:5000"
+  nginx:
+    image: nginx:1.14-alpine
+    restart: unless-stopped
+    volumes:
+    - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    - ./static:/static:ro
+    ports:
+      - "127.0.0.1:8080:80"

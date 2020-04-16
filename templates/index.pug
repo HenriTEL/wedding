@@ -1,0 +1,20 @@
+extends main.pug
+
+block content
+  h1.header #{title}
+  ul.d-flex.justify-content-between
+    li.card
+      a(href="/apropos")
+        img.card-img-top(src='/img/couple-bretagne.jpeg')
+        .card-body
+            h5.card-title.text-body À propos de nous
+    li.card
+      a(href="/infos")
+        img.card-img-top(src='/img/infos.jpg')
+        .card-body
+            h5.card-title.text-body Infos pratiques
+    li.card
+      a(href="/liste")
+        img.card-img-top(src='/img/list.png')
+        .card-body
+            h5.card-title.text-body Liste de mariage

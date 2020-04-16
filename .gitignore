@@ -1,0 +1,17 @@
+# Static
+*.css
+*.html
+jquery*.js
+popper*.js
+bootstrap*/
+node_modules/
+package*.json
+
+about-us.jpg
+direction.jpg
+
+# Templates
+vars.pug
+
+# Backend
+db/
