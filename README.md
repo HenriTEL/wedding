@@ -1,4 +1,4 @@
-# mariage
+# Wedding
 A wedding website.
 
 ## Dev Quickstart
