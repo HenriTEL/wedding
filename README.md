@@ -5,12 +5,13 @@ A wedding website.
 **Installation**
 ```bash
 # From the root dir of this repo, run
-sudo apt install nodejs npm
+sudo apt install nodejs npm wget
 sudo npm install -g pug-cli sass
 cp vars.example.pug vars.pug
-wget -P static/ https://code.jquery.com/jquery-3.1.1.min.js
-wget -P static/ https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js
-# Dowload bootstrap into static/
+wget --no-clobber -P static/ \
+  https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css \
+  https://code.jquery.com/jquery-3.4.1.slim.min.js \
+  https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js
 ```
 
 **Start developping**
