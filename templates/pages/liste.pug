@@ -2,10 +2,13 @@ extends ../components/main.pug
 
 block content
   h1.header Liste de mariage
-  ul.d-flex.justify-content-between.flex-wrap
-    each val in [1, 2, 3, 4, 5, 6]
-      li.card
-        a(href="/apropos")
-          img.card-img-top(src='/img/infos.jpg')
-          .card-body
-              h5.card-title.text-body À propos de nous
+  template#item
+    li.card
+      a
+        img.card-img-top(src='/img/infos.jpg')
+        .card-body
+            h5.card-title.text-body
+            h6.card-subtitle.text-muted
+  ul#items.d-flex.justify-content-between.flex-wrap
+block additional-scripts
+  script(src='/wedding-list.js')
