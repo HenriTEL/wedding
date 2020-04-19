@@ -1,9 +1,11 @@
 # Wedding
-A wedding website. Most content is served as static html and css generated using [pug](https://pugjs.org) and [sass](https://sass-lang.com).  
-There is a simple **wedding list** app based on [flask](https://flask.palletsprojects.com).  
-All can be run from a single [docker-compose](https://docs.docker.com/compose) which makes `docker` and `docker-compose` the only dependencies to run in production.
+A static wedding website based on [bootstrap](https://getbootstrap.com/) and a **wedding list** app.  
+Most content is html and css generated using [pug](https://pugjs.org) and [sass](https://sass-lang.com) for small verbosity.  
+There **wedding list** app is based on [flask](https://flask.palletsprojects.com).  
+All is run from a single [docker-compose](https://docs.docker.com/compose) which makes `docker` and `docker-compose` the only dependencies to run in production.
 
 ## Dev Quickstart
+Prerequisite: [docker](https://docs.docker.com/get-docker/).  
 **Installation**
 ```bash
 # From the root dir of this repo, run
