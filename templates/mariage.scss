@@ -1,12 +1,21 @@
 @use 'pages/not-found';
 
-li.card {
-    width: 18rem;
-    height: 28rem;
-    margin-bottom: 1rem;
-    margin-top: 1rem;
-
+%basic-card {
     img {
         max-height: 360px;
     }
+}
+
+li.card {
+    @extend %basic-card;
+    width: 18rem;
+    height: 26rem;
+}
+
+li.card.product {
+    @extend %basic-card;
+    width: 9rem;
+    height: 14rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
 }

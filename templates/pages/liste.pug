@@ -2,13 +2,13 @@ extends ../components/main.pug
 
 block content
   h1.header Liste de mariage
-  template#item
-    li.card
-      a
-        img.card-img-top(src='/img/infos.jpg')
-        .card-body
-            h5.card-title.text-body
-            h6.card-subtitle.text-muted
   ul#items.d-flex.justify-content-between.flex-wrap
+  template#item
+    li.card.product
+      img.card-img-top(src='/img/infos.jpg')
+      p.card-body
+          span.text-body
+          br
+          small.text-muted
 block additional-scripts
   script(src='/wedding-list.js')

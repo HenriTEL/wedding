@@ -3,20 +3,25 @@ fetch('api/wedding-list')
     return response.json();
   })
   .then((items) => {
-    console.log(items);
-    insert_items(items)
+    refresh_items(items)
   });
 
-function insert_items(items) {
+categories = new Set()
+function refresh_items(items, category='') {
   if ('content' in document.createElement('template')) {
-    var template = document.querySelector('#item');
-    var ul = document.querySelector("#items");
-    for (var item in items) {
-      var li = template.content.cloneNode(true);
-      li.querySelector("a").setAttribute("href", "/");
-      li.querySelector("h5").textContent = item;
-      li.querySelector("h6").textContent = `${items[item].price / 100} €`;
-      ul.appendChild(li);
+    let template = document.querySelector('#item');
+    let ul = document.querySelector("#items");
+    for (let item in items) {
+      if (category == '' || items[item].category == category) {
+        let li = template.content.cloneNode(true);
+        li.querySelector(".text-body").textContent = item;
+        li.querySelector(".text-muted").textContent = `${items[item].price / 100} €`;
+        ul.appendChild(li);
+      }
+      let cat = items[item].category;
+      if (cat != "") {
+        categories.add(cat)
+      }
     }
   } else {
     alert('Votre navigateur est trop ancien pour afficher ce site, veuillez le mettre à jour.')
