@@ -14,16 +14,16 @@ function init_items_cards(items) {
   } else {
     alert('Votre navigateur est trop ancien pour afficher cette page, veuillez le mettre à jour.')
   }
-  for (item in items) {
+  for (item of items) {
     let item_li = item_template.content.cloneNode(true);
-    item_li.querySelector(".text-body").textContent = item;
-    item_li.querySelector(".text-muted").textContent = `${items[item].price / 100} €`;
+    item_li.querySelector(".text-body").textContent = item.name;
+    item_li.querySelector(".text-muted").textContent = `${item.price / 100} €`;
     items_ul.appendChild(item_li);
     item_li = items_ul.lastElementChild;
-    item_li.setAttribute('data-category', items[item].category)
-    item_li.querySelector(".card-img-top").setAttribute('src', `/img/wedding-list/${items[item].image}`)
+    item_li.setAttribute('data-category', item.category)
+    item_li.querySelector(".card-img-top").setAttribute('src', `/img/wedding-list/${item.image}`)
 
-    categories.add(items[item].category);
+    categories.add(item.category);
   }
   categories_select = document.getElementById('categories');
   for (category of categories) {

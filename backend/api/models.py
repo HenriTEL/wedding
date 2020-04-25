@@ -1,7 +1,8 @@
+import logging
 import os
 import json
 
-from config import CONTRIBUTORS_PATH, WL_PATH_JSON, WL_PATH_CSV
+from config import CONTRIBUTORS_PATH, WL_PATH
 
 
 class Contributors:
@@ -28,41 +29,30 @@ class Contributors:
             json.dump(self.items, cont_fd)
 
 
-class WeddingList:
+class WeddingList(dict):
     def __init__(self):
-        def _load_csv(path):
-            res = {}
-            with open(path) as csv_fd:
-                next(csv_fd)
-                for l in csv_fd:
-                    fields = l.split(',')
-                    title = fields[0]
-                    category = fields[1].rstrip() if fields[1] else 'Autre'
-                    res[title] = {'category': category,
-                                'price': fields[2].rstrip(),
-                                'image': fields[3].split('/')[-1].rstrip()}
-            return res
-
-        if os.path.isfile(WL_PATH_JSON):
-            with open(WL_PATH_JSON) as wl_fd:
-                self.items = json.load(wl_fd)
-        elif os.path.isfile(WL_PATH_CSV):
-            self.items = _load_csv(WL_PATH_CSV)
+        if os.path.isfile(WL_PATH):
+            for fields in get_csv_fields(WL_PATH):
+                name = fields[0]
+                category = fields[1].rstrip() if fields[1] else 'Autre'
+                self[name] = {'category': category,
+                              'price': fields[2].rstrip(),
+                              'contribution_amount': 0,
+                              'image': fields[3].split('/')[-1].rstrip()}
         else:
-            raise OSError(f'Neither {WL_PATH_JSON} nor {WL_PATH_CSV} were found, '
-                           'did you set the right DB_PATH ?')
+            raise FileNotFoundError(f'{WL_PATH} not found, did you set the right DB_PATH ?')
 
-    def add_contributions(self, contributions):
+    def set_contribution_amounts(self, contributions):
         for key, amount in contributions:
-            self._add_contribution(key, amount)
-        self._save()
+            self[key]['contribution_amount'] += amount
 
-    def _add_contribution(self, key, amount):
-        if 'contributions' in self.items[key]:
-            self.items[key]['contributions'].append(amount)
-        else:
-            self.items[key]['contributions'] = [amount]
+    def sorted(self):
+        res = [{**v , 'name': k} for k, v in self.items()]
+        return sorted(res, key = lambda i: i['price'])
 
-    def _save(self):
-        with open(WL_PATH_JSON, 'w') as wl_fd:
-            json.dump(self.items, wl_fd)
+
+def get_csv_fields(path):
+    with open(path) as csv_fd:
+        next(csv_fd)
+        for l in csv_fd:
+            yield l.split(',')

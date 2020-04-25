@@ -1,6 +1,6 @@
 import os
 import json
-from flask import Flask, request
+from flask import Flask, jsonify, request
 
 from models import Contributors, WeddingList
 
@@ -18,4 +18,4 @@ def wedding_list():
     if request.method == 'POST':
         pass
     elif request.method == 'GET':
-        return wl.items
+        return jsonify(wl.sorted())
