@@ -1,8 +1,8 @@
-label(for='categories') Filtrer par catégorie :
+label(for='categories') Catégorie :
 select(id='categories', onclick="refresh_items_cards();")
-    option(value='Toutes') Toutes
+    option(value='Toutes') Toutes les catégories
 
-ul#items.d-flex.justify-content-between.flex-wrap
+ul#items.d-flex.justify-content-start.flex-wrap
 template#item
     li.card.product
         img.card-img-top
