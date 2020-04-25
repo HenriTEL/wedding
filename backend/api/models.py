@@ -37,9 +37,10 @@ class WeddingList:
                 for l in csv_fd:
                     fields = l.split(',')
                     title = fields[0]
-                    res[title] = {'category': fields[1].rstrip(),
+                    category = fields[1].rstrip() if fields[1] else 'Autre'
+                    res[title] = {'category': category,
                                 'price': fields[2].rstrip(),
-                                'image': fields[3].rstrip()}
+                                'image': fields[3].split('/')[-1].rstrip()}
             return res
 
         if os.path.isfile(WL_PATH_JSON):
