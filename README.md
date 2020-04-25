@@ -34,4 +34,5 @@ Most content can be customized by setting values in `vars.pug`.
 
 **Wedding list**  
 Make your wedding list in a .csv spreadsheet, separator must be comma, first line is ignored.  
-Save it to `backend/db/wedding-list/csv`.
+Save it to `backend/db/wedding-list.csv`.
+Download your wedding list images by running `./download_wedding_list_imgs.sh`.

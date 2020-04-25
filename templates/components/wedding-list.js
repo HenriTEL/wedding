@@ -16,11 +16,12 @@ function init_items_cards(items) {
   }
   for (item in items) {
     let item_li = item_template.content.cloneNode(true);
-    console.log(item_li);
     item_li.querySelector(".text-body").textContent = item;
     item_li.querySelector(".text-muted").textContent = `${items[item].price / 100} €`;
     items_ul.appendChild(item_li);
-    items_ul.lastElementChild.setAttribute('data-category', items[item].category)
+    item_li = items_ul.lastElementChild;
+    item_li.setAttribute('data-category', items[item].category)
+    item_li.querySelector(".card-img-top").setAttribute('src', `/img/wedding-list/${items[item].image}`)
 
     categories.add(items[item].category);
   }

@@ -1,9 +1,10 @@
 # Static
+static/img/wedding-list/
 *.css
 *.html
 jquery*.js
 popper*.js
-bootstrap*/
+bootstrap*
 node_modules/
 package*.json
 
