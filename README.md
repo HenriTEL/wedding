@@ -16,6 +16,10 @@ wget --no-clobber -P static/ \
   https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js \
   https://code.jquery.com/jquery-3.4.1.slim.min.js \
   https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js
+[ ! -d bootstrap-4.4.1 ] \
+  && wget https://github.com/twbs/bootstrap/archive/v4.4.1.zip \
+  && unzip v4.4.1.zip \
+  && rm v4.4.1.zip
 ```
 
 **Start developping**

@@ -1,5 +1,9 @@
-@use 'pages/not-found';
-@use 'components/wedding-list';
+@import "../bootstrap-4.4.1/scss/functions";
+@import "../bootstrap-4.4.1/scss/variables";
+@import "../bootstrap-4.4.1/scss/mixins";
+
+@import 'pages/not-found';
+@import 'components/wedding-list';
 
 li.card {
     width: 18rem;

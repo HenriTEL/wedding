@@ -8,7 +8,26 @@ li.card.product {
         max-height: 212px;
     }
 
+    .card-img-overlay {
+        opacity: 0;
+
+        svg {
+            width: 4rem;
+            height: 4rem;
+        }
+    }
+
     .card-body {
         padding: .5rem;
+    }
+
+    &:hover {
+        img {
+            opacity: 0;
+        }
+
+        .card-img-overlay {
+            opacity: 1;
+        }
     }
 }

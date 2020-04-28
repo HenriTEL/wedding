@@ -5,8 +5,26 @@ select(id='categories', onclick="refresh_items_cards();")
 ul#items.d-flex.justify-content-start.flex-wrap
 template#item
     li.card.product
-        img.card-img-top
+        img.card-img-top.bg-primary
+        a.card-img-overlay(href="#" data-toggle="modal" data-target="#proceedModal")
+            .text-center.align-bottom
+                include gift.svg
+                br
+                h5.card-title Participer
         p.card-body
-            span.text-body
+            span.text-body -
             br
-            small.text-muted
+            small.text-muted -
+
+#proceedModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
+  .modal-dialog(role='document')
+    .modal-content
+      .modal-header
+        h5#exampleModalLabel.modal-title Modal title
+        button.close(type='button' data-dismiss='modal' aria-label='Close')
+          span(aria-hidden='true') &times;
+      .modal-body
+        | Procéder au paiement.
+      .modal-footer
+        button.btn.btn-secondary(type='button' data-dismiss='modal') Close
+        button.btn.btn-primary(type='button') Save changes
