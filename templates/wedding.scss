@@ -2,6 +2,12 @@
 @import "../bootstrap-4.4.1/scss/variables";
 @import "../bootstrap-4.4.1/scss/mixins";
 
+// $primary: #cc0000;
+$theme-colors: (
+  "primary": #cc0000,
+);
+
+@import '../bootstrap-4.4.1/scss/bootstrap';
 @import 'pages/not-found';
 @import 'components/wedding-list';
 
