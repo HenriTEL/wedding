@@ -96,6 +96,7 @@ function pay() {
     body: JSON.stringify({
       item_id: sanitize_str(payment_modal.querySelector('.modal-title').textContent),
       amount_cent: amount_cent,
+      contributor_name: payment_modal.querySelector('#contributor-name').value,
       message: payment_modal.querySelector('#contribution-message').value
     })
   }

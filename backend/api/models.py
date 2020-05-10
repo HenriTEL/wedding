@@ -32,7 +32,7 @@ class Contributions(dict):
 
     def _write_contribution(self, contribution: dict):
         with open(CONTRIBUTIONS_PATH, 'a') as cont_fd:
-            print(json.dump(contribution), file=cont_fd)
+            print(json.dumps(contribution), file=cont_fd)
 
 
 class WeddingList(ValueSortedDict):
@@ -54,8 +54,8 @@ class WeddingList(ValueSortedDict):
             raise FileNotFoundError(
                 f'{WL_PATH} not found, did you set the right DB_PATH ?')
 
-    def add_contribution(self, item_name: str, amount: str):
-        self[to_id(item_name)]['contribution_amount'] += to_cent(amount)
+    def add_contribution(self, item_name: str, amount: int):
+        self[to_id(item_name)]['contribution_amount'] += amount
 
     def _init_contributions(self, contributions):
         for _, contribution in contributions.items():

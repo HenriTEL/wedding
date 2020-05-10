@@ -34,6 +34,7 @@ async def wedding_list():
 @app.post('/stripe-checkout-session')
 async def create_stripe_checkout_session(item_id: str = Body(...),
                                          amount_cent: int = Body(...),
+                                         contributor_name: str = Body(...),
                                          message: str = Body(...)):
     # For full details see https:stripe.com/docs/api/checkout/sessions/create
     item = {
@@ -49,6 +50,8 @@ async def create_stripe_checkout_session(item_id: str = Body(...),
         checkout_session = stripe.checkout.Session.create(
             success_url=f'{WEBSITE_HOST}/liste?checkout_status=success',
             cancel_url=f'{WEBSITE_HOST}/liste?checkout_status=cancel',
+            submit_type='donate',
+            metadata={'contributor_name': contributor_name},
             payment_method_types=["card"],
             line_items=[item])
     except Exception as e:
@@ -58,12 +61,10 @@ async def create_stripe_checkout_session(item_id: str = Body(...),
 
 @app.post('/stripe-webhook')
 async def stripe_webhook(request: Request, stripe_signature: str = Header(None)):
-
     try:
         event = stripe.Webhook.construct_event(
             payload=bytes.decode(await request.body()),
             sig_header=stripe_signature,
-            submit_type='donate',
             secret=STRIPE_WEBHOOK_SECRET_KEY)
         bill = event.data.get('object')
     except Exception as e:
@@ -80,8 +81,8 @@ async def stripe_webhook(request: Request, stripe_signature: str = Header(None))
         logging.error(customer)
         contribution = {
             'amount': bill['display_items'][0]['amount'],
-            'contributor_email': bilcustomer['email'],
-            'contributor_name': customer['name'],
+            'contributor_email': customer['email'],
+            'contributor_name': bill['metadata']['contributor_name'],
             'item_id': bill['display_items'][0]['custom']['name'],
             'message': bill['display_items'][0]['custom']['description'],
         }
