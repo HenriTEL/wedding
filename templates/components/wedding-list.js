@@ -70,13 +70,12 @@ function alert_payment(status, details=null) {
 
 function update_modal(item_li) {
   const title = item_li.querySelector(".text-body").textContent;
-  const price_cent = item_li.querySelector(".text-muted").textContent.replace(/€/, '');
-  const contribution_amount = item_li.getAttribute('data-contribution-amount');
+  const remain = item_li.getAttribute('data-remain');
   _set_url(title);
   payment_modal.querySelector('.modal-title').textContent = title;
   payment_modal.querySelector('img').src = item_li.querySelector(".card-img-top").src;
-  payment_modal.querySelector('.contribution').setAttribute('max', price_cent - contribution_amount);
-  payment_modal.querySelector('.contribution').value = price_cent - contribution_amount;
+  payment_modal.querySelector('.contribution').setAttribute('max', remain);
+  payment_modal.querySelector('.contribution').value = remain;
 }
 
 
@@ -132,11 +131,16 @@ function _add_category_option(category) {
 function _add_item_li(item) {
   let item_li = item_template.content.cloneNode(true);
   item_li.querySelector(".text-body").textContent = item.name;
-  item_li.querySelector(".text-muted").textContent = `${item.price_cent / 100} €`;
+  const remain = (item.price_cent - item.contribution_amount) / 100;
+  if (item.contribution_amount > 0) {
+    item_tag += `${remain} € restant sur un total de `
+  }
+  item_tag += `<strong>${item.price_cent / 100} €</strong>`
+  item_li.querySelector(".text-muted").textContent = item_tag;
   items_ul.appendChild(item_li);
   item_li = items_ul.lastElementChild;
   item_li.setAttribute('data-category', sanitize_str(item.category));
-  item_li.setAttribute('data-contribution-amount', item.contribution_amount);
+  item_li.setAttribute('data-remain', remain);
   item_li.querySelector(".card-img-top").setAttribute('src', `/img/wedding-list/${item.image}`);
   return item_li;
 }

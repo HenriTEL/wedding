@@ -5,7 +5,6 @@ import os
 import unicodedata
 from pathlib import Path
 
-from pydantic import BaseModel
 from sortedcollections import ValueSortedDict
 
 from .config import CONTRIBUTIONS_PATH, WL_PATH

@@ -69,16 +69,13 @@ async def stripe_webhook(request: Request, stripe_signature: str = Header(None))
         bill = event.data.get('object')
     except Exception as e:
         logging.error(e)
-        return e
+        return {'error': str(e)}, 403
     logging.error("Received Stripe webhook event: id=%s, type=%s", event.id,
                   event.type)
 
     if event.type == 'checkout.session.completed' and event.id not in contributions:
         # See https://stripe.com/docs/api/checkout/sessions/object
-        logging.error('Payment succeeded!')
-        logging.error(bill)
         customer = stripe.Customer.retrieve(bill['customer'])
-        logging.error(customer)
         contribution = {
             'amount': bill['display_items'][0]['amount'],
             'contributor_email': customer['email'],
