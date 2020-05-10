@@ -36,7 +36,7 @@ class Contributions(dict):
 
 class WeddingList(ValueSortedDict):
     def __init__(self, contributions={}):
-        super().__init__(lambda v: v['price_cent'] - v['contribution_amount'])
+        super().__init__(price_diff)
         if os.path.isfile(WL_PATH):
             for fields in get_csv_fields(WL_PATH):
                 item_name = fields[0]
@@ -49,6 +49,7 @@ class WeddingList(ValueSortedDict):
                     'image': fields[3].split('/')[-1].rstrip()
                 }
             self._init_contributions(contributions)
+            super().__init__(price_diff, self)
         else:
             raise FileNotFoundError(
                 f'{WL_PATH} not found, did you set the right DB_PATH ?')
@@ -59,7 +60,15 @@ class WeddingList(ValueSortedDict):
     def _init_contributions(self, contributions):
         for _, contribution in contributions.items():
             item_id = contribution['item_id']
-            self[item_id] += contribution['amount']
+            self.add_contribution(item_id, contribution['amount'])
+
+
+def price_diff(item):
+    diff = item['price_cent'] - item['contribution_amount']
+    if diff > 0:
+        return diff
+    # Already 
+    return 30_000_000_000
 
 
 def get_csv_fields(path):

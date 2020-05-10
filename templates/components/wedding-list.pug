@@ -11,9 +11,9 @@ template#item
         include gift.svg
         br/
         h5.card-title Participer
-    p.card-body.d-flex.flex-column
+    .card-body.d-flex.flex-column
       span.text-body.mt-auto -
-      br/
+      .progress: .progress-bar.bg-success(role="progressbar") -
       small.text-muted -
 
 #paymentModal.modal.fade(data-stripe-public-key=`${STRIPE_PUBLIC_KEY}` tabindex='-1' role='dialog' aria-hidden='true')
@@ -32,7 +32,7 @@ template#item
           span.align-self-center €
         input#contributor-name.form-control(type="text" placeholder="Nom" required)
         textarea#contribution-message.form-control.mt-3(rows="3" placeholder="Ajouter un message aux mariés (optionnel)")
-          
+
       .modal-footer.border-primary.flex-column
         button#pay.btn.btn-primary.btn-lg(onclick="pay()") Procéder au paiement
 

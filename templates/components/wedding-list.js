@@ -129,19 +129,29 @@ function _add_category_option(category) {
 
 
 function _add_item_li(item) {
+  const remain = (item.price_cent - item.contribution_amount) / 100;
   let item_li = item_template.content.cloneNode(true);
   item_li.querySelector(".text-body").textContent = item.name;
-  const remain = (item.price_cent - item.contribution_amount) / 100;
-  if (item.contribution_amount > 0) {
-    item_tag += `${remain} € restant sur un total de `
-  }
-  item_tag += `<strong>${item.price_cent / 100} €</strong>`
-  item_li.querySelector(".text-muted").textContent = item_tag;
+  item_li.querySelector(".text-muted").innerHTML = `Total : <strong>${item.price_cent / 100} €</strong>`;
   items_ul.appendChild(item_li);
   item_li = items_ul.lastElementChild;
   item_li.setAttribute('data-category', sanitize_str(item.category));
   item_li.setAttribute('data-remain', remain);
   item_li.querySelector(".card-img-top").setAttribute('src', `/img/wedding-list/${item.image}`);
+  if (remain > 0) {
+    if (item.contribution_amount > 0) {
+      item_li.querySelector(".progress-bar").innerHTML = `${item.contribution_amount / 100} €`;
+      item_li.querySelector(".progress-bar").style.width = `${item.contribution_amount * 100 / item.price_cent}%`;
+    } else {
+      item_li.querySelector(".progress").style.display = "none";
+    }
+  } else {
+    item_li.querySelector(".progress-bar").classList.add('w-100');
+    item_li.querySelector(".progress-bar").innerHTML = 'Déjà offert';
+    item_li.removeChild(item_li.querySelector(".card-img-overlay"));
+    item_li.removeAttribute('onclick');
+    item_li.removeAttribute('data-toggle');
+  }
   return item_li;
 }
 
