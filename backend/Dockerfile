@@ -1,10 +1,4 @@
-FROM python:3.8-alpine
+FROM tiangolo/uvicorn-gunicorn-fastapi:python3.8-alpine3.10
 
-ENV FLASK_APP /api/main.py
-ENV FLASK_ENV development
-ENV FLASK_DEBUG 1
-
-RUN pip3 install flask==1.1.*
-COPY api /
-
-ENTRYPOINT ["flask", "run"]
+RUN pip install --no-cache-dir sortedcollections stripe
+COPY ./api /app/app

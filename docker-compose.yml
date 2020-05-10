@@ -5,17 +5,21 @@ services:
   api:
     build: ./backend
     volumes:
-    - ./backend/api:/api:ro
+    - ./backend/api:/app/app:ro
     - ./backend/db:/db
-    command: --host=0.0.0.0
+    command: [/start-reload.sh]
+    env_file: secrets.env
+    environment:
+    - STRIPE_API_VERSION=2020-03-02
+    - WEBSITE_HOST=http://localhost:8080
+    - CURRENCY=eur
     ports:
-    - "127.0.0.1:5000:5000"
+    - 127.0.0.1:5000:80
 
   nginx:
     image: nginx:1.14-alpine
-    restart: unless-stopped
     volumes:
     - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
     - ./static:/static:ro
     ports:
-    - "127.0.0.1:8080:80"
+    - 127.0.0.1:8080:80

@@ -17,3 +17,6 @@ vars.pug
 # Backend
 backend/db/wedding-list.csv
 backend/db/*.json
+
+# Secrets
+secrets.env

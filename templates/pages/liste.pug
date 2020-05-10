@@ -4,6 +4,8 @@ block content
   h1.header Liste de mariage
   include ../components/wedding-list.pug
 
+block additional-heads
+  script(src="https://js.stripe.com/v3/")
 block additional-scripts
   script
     include ../components/wedding-list.js

@@ -1,30 +1,53 @@
 label(for='categories') Catégorie :
 select(id='categories', onclick="refresh_items_cards();")
-    option(value='Toutes') Toutes les catégories
+  option(value='Toutes') Toutes les catégories
 
 ul#items.d-flex.justify-content-start.flex-wrap
 template#item
-    li.card.product
-        img.card-img-top.bg-primary
-        a.card-img-overlay(href="#" data-toggle="modal" data-target="#proceedModal")
-            .text-center.align-bottom
-                include gift.svg
-                br
-                h5.card-title Participer
-        p.card-body
-            span.text-body -
-            br
-            small.text-muted -
+  li.product.card(data-toggle="modal" data-target="#paymentModal" onclick="update_modal(this);")
+    img.card-img-top
+    .card-img-overlay
+      .text-center.align-bottom
+        include gift.svg
+        br/
+        h5.card-title Participer
+    p.card-body.d-flex.flex-column
+      span.text-body.mt-auto -
+      br/
+      small.text-muted -
 
-#proceedModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
+#paymentModal.modal.fade(data-stripe-public-key=`${STRIPE_PUBLIC_KEY}` tabindex='-1' role='dialog' aria-hidden='true')
   .modal-dialog(role='document')
     .modal-content
-      .modal-header
-        h5#exampleModalLabel.modal-title Modal title
+      .modal-header.bg-primary
+        h5.modal-title.text-white.font-weight-bold -
         button.close(type='button' data-dismiss='modal' aria-label='Close')
           span(aria-hidden='true') &times;
       .modal-body
-        | Procéder au paiement.
-      .modal-footer
-        button.btn.btn-secondary(type='button' data-dismiss='modal') Close
-        button.btn.btn-primary(type='button') Save changes
+        .text-center
+          img.img-fluid
+        .d-flex.mt-3
+          span.align-self-center Participer à hauteur de
+          input.contribution.form-control.align-self-center.mx-1(type="number" step="0.01" min="0")
+          span.align-self-center €
+        textarea#contribution-message.form-control.mt-3(rows="3" placeholder="Ajouter un message aux mariés (optionnel)")
+          
+      .modal-footer.border-primary.flex-column
+        button#pay.btn.btn-primary.btn-lg(onclick="pay()") Procéder au paiement
+
+#notifications
+  template#notification
+    .alert.alert-dismissible.fade.show(role="alert")
+      .fail
+        | Le paiement a échoué, veuillez réessayer
+        | ou envoyer un email à <strong>contact@carolinehenri.com</strong> si le problème persiste.
+      .success
+        | Le paiement a été réalisé avec <strong>succès</strong> !
+        | Merci pour votre participation.
+      .cancel
+        | Le paiement a été <strong>annulé</strong>.
+      .details
+      button.close(type="button" data-dismiss="alert" aria-label="Close")
+        span(aria-hidden="true") &times;
+
+
