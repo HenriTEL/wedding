@@ -42,7 +42,7 @@ Go to http://localhost:8080/
 Most content can be customized by setting values in `vars.pug`.
 
 **Wedding list**  
-Make your wedding list spreadsheet to to `backend/db/wedding-list.csv`.  
+Make your wedding list spreadsheet at `backend/db/wedding-list.csv`.  
 It must follow the format of `backend/db/wedding-list.example.csv`, the first line is ignored.  
 Download your wedding list images by running `./dl_wl_imgs.py`.
 
