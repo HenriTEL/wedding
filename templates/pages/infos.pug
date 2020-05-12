@@ -22,3 +22,12 @@ block content
       a(href="#{direction.link}") #{direction.text}
       br
   img.img-fluid(src='/img/direction.jpg')
+
+  h1.header Hébergement
+  p Vous pouvez planter votre <strong>tente</strong> dans la propriété, un espace a été prévu a cet effet.
+  p
+    | Nous ajoutons cette liste pour vous aider à trouver un hébergement :
+    br
+    each accomodation in accomodations
+      a(href="#{accomodation.link}") #{accomodation.text}
+      br
