@@ -1,7 +1,11 @@
 # TODO
-* Check payment lead to contributions in db
-* Add contribution progress
 * Check mobile
+* Add licence
+* Add ci + tests
+
+**Improvements**  
+* Refactor js components
+* Rewrite js in typescript
 
 # Wedding
 A static wedding website and a **wedding list** app based on [bootstrap](https://getbootstrap.com/).  
