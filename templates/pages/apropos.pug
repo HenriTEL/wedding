@@ -1,0 +1,22 @@
+extends ../components/main.pug
+  
+block content
+  h1.header À propos de nous
+  include ../components/about-us-content.pug
+  #carousel.carousel.slide(data-ride='carousel')
+    ol.carousel-indicators
+      li.active(data-target='#carousel' data-slide-to='0')
+      - for (var x = 1; x < nb_about_us_img; x++)
+        li(data-target='#carousel' data-slide-to=x)
+    .carousel-inner
+      .carousel-item.active
+        img.d-block.w-100(src='/img/about-us/1.jpg')
+      - for (var x = 2; x <= nb_about_us_img; x++)
+        .carousel-item
+            img.d-block.w-100(src='/img/about-us/'+ x + '.jpg')
+    a.carousel-control-prev(href='#carousel' role='button' data-slide='prev')
+      span.carousel-control-prev-icon(aria-hidden='true')
+      span.sr-only Image précédente
+    a.carousel-control-next(href='#carousel' role='button' data-slide='next')
+      span.carousel-control-next-icon(aria-hidden='true')
+      span.sr-only Image suivante

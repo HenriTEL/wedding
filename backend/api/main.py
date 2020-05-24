@@ -3,8 +3,6 @@ import logging
 import json
 import stripe
 from fastapi import FastAPI, Request, Header, Body
-from typing import Dict
-from pydantic import BaseModel
 
 from .models import WeddingList, Contributions
 
@@ -18,7 +16,7 @@ stripe.api_version = os.getenv('STRIPE_API_VERSION')
 contributions = Contributions()
 wl = WeddingList(contributions)
 
-app = app = FastAPI()
+app = FastAPI()
 
 
 @app.get('/')

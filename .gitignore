@@ -1,5 +1,7 @@
 # Static
 static/img/wedding-list/
+static/img/about-us/
+templates/components/about-us-content.pug
 *.css
 *.html
 jquery*.js
