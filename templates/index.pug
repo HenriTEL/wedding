@@ -1,7 +1,11 @@
 extends components/main.pug
 
 block content
-  h1.header #{title}
+  .media.mb-2
+    img.mr-3(src='/img/empty-bottle.png')
+    .media-body
+      h1 Mariés ou pendus ?
+  h3#count-down.mb-4
   ul.d-flex.justify-content-between.flex-wrap
     li.card
       a(href="/apropos")
@@ -18,3 +22,6 @@ block content
         img.card-img-top(src='/img/list.png')
         .card-body
             h5.card-title.text-body Liste de mariage
+block additional-scripts
+  script
+    include components/countdown.js

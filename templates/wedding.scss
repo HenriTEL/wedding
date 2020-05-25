@@ -11,18 +11,22 @@ $theme-colors: (
 @import 'pages/not-found';
 @import 'components/wedding-list';
 
+.media img {
+  max-height: 4rem;
+}
+
+.main-content {
+  margin-top: 4rem;
+}
+
 li.card {
     width: 18rem;
     height: 26rem;
 
     img {
-        max-height: 360px;
+        max-height: 22.5rem;
     }
 }
-
-// .carousel img {
-//   max-height: 60rem;
-// }
 
 .pre-wrap {
   white-space: pre-wrap;
