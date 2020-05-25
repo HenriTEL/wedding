@@ -49,13 +49,15 @@ class WeddingList(ValueSortedDict):
                     'image': fields[3].split('/')[-1].rstrip()
                 }
             self._init_contributions(contributions)
-            super().__init__(price_diff, self)
         else:
             raise FileNotFoundError(
                 f'{WL_PATH} not found, did you set the right DB_PATH ?')
 
     def add_contribution(self, item_name: str, amount: int):
-        self[to_id(item_name)]['contribution_amount'] += amount
+        item_id = to_id(item_name)
+        item_val = self.pop(item_id)
+        item_val['contribution_amount'] += amount
+        self[item_id] = item_val
 
     def _init_contributions(self, contributions):
         for _, contribution in contributions.items():
