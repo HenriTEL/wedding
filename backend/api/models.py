@@ -69,7 +69,7 @@ def price_diff(item):
     diff = item['price_cent'] - item['contribution_amount']
     if diff > 0:
         return diff
-    # Already 
+    # Full paid articles appear last
     return 30_000_000_000
 
 

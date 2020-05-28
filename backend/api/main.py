@@ -16,7 +16,7 @@ stripe.api_version = os.getenv('STRIPE_API_VERSION')
 contributions = Contributions()
 
 app = FastAPI()
-app.wl = WeddingList(contributions)
+wl = WeddingList(contributions)
 
 
 @app.get('/')
@@ -25,19 +25,18 @@ async def hello():
 
 
 @app.get('/wedding-list')
-async def wedding_list(request: Request):
-    return list(request.app.wl.values())
+def wedding_list():
+    return list(wl.values())
 
 
 @app.post('/stripe-checkout-session')
-async def create_stripe_checkout_session(request: Request,
-                                         item_id: str = Body(...),
-                                         amount_cent: int = Body(...),
-                                         contributor_name: str = Body(...),
-                                         message: str = Body(...)):
+def create_stripe_checkout_session(item_id: str = Body(...),
+                                   amount_cent: int = Body(...),
+                                   contributor_name: str = Body(...),
+                                   message: str = Body(...)):
     # For full details see https:stripe.com/docs/api/checkout/sessions/create
     item = {
-                "name": request.app.wl[item_id]['name'],
+                "name": wl[item_id]['name'],
                 "images": [f"{WEBSITE_HOST}/img/wedding-list/{wl[item_id]['image']}"],
                 "quantity": 1,
                 "currency": CURRENCY,
@@ -59,7 +58,7 @@ async def create_stripe_checkout_session(request: Request,
 
 
 @app.post('/stripe-webhook')
-async def stripe_webhook(request: Request, stripe_signature: str = Header(None)):
+def stripe_webhook(request: Request, stripe_signature: str = Header(None)):
     try:
         event = stripe.Webhook.construct_event(
             payload=bytes.decode(await request.body()),
@@ -69,8 +68,6 @@ async def stripe_webhook(request: Request, stripe_signature: str = Header(None))
     except Exception as e:
         logging.error(e)
         return {'error': str(e)}, 403
-    logging.error("Received Stripe webhook event: id=%s, type=%s", event.id,
-                  event.type)
 
     if event.type == 'checkout.session.completed' and event.id not in contributions:
         # See https://stripe.com/docs/api/checkout/sessions/object
@@ -82,7 +79,7 @@ async def stripe_webhook(request: Request, stripe_signature: str = Header(None))
             'item_id': bill['display_items'][0]['custom']['name'],
             'message': bill['display_items'][0]['custom']['description'],
         }
-        request.app.wl.add_contribution(contribution['item_id'], contribution['amount'])
+        wl.add_contribution(contribution['item_id'], contribution['amount'])
         contributions.add(event.id, contribution)
 
     return {'status': 'success'}
