@@ -14,9 +14,9 @@ CURRENCY = os.getenv('CURRENCY')
 stripe.api_key = STRIPE_SECRET_KEY
 stripe.api_version = os.getenv('STRIPE_API_VERSION')
 contributions = Contributions()
-wl = WeddingList(contributions)
 
 app = FastAPI()
+app.wl = WeddingList(contributions)
 
 
 @app.get('/')
@@ -25,18 +25,19 @@ async def hello():
 
 
 @app.get('/wedding-list')
-async def wedding_list():
-    return list(wl.values())
+async def wedding_list(request: Request):
+    return list(request.app.wl.values())
 
 
 @app.post('/stripe-checkout-session')
-async def create_stripe_checkout_session(item_id: str = Body(...),
+async def create_stripe_checkout_session(request: Request,
+                                         item_id: str = Body(...),
                                          amount_cent: int = Body(...),
                                          contributor_name: str = Body(...),
                                          message: str = Body(...)):
     # For full details see https:stripe.com/docs/api/checkout/sessions/create
     item = {
-                "name": wl[item_id]['name'],
+                "name": request.app.wl[item_id]['name'],
                 "images": [f"{WEBSITE_HOST}/img/wedding-list/{wl[item_id]['image']}"],
                 "quantity": 1,
                 "currency": CURRENCY,
@@ -81,7 +82,7 @@ async def stripe_webhook(request: Request, stripe_signature: str = Header(None))
             'item_id': bill['display_items'][0]['custom']['name'],
             'message': bill['display_items'][0]['custom']['description'],
         }
-        wl.add_contribution(contribution['item_id'], contribution['amount'])
+        request.app.wl.add_contribution(contribution['item_id'], contribution['amount'])
         contributions.add(event.id, contribution)
 
     return {'status': 'success'}
