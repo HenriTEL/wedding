@@ -61,7 +61,7 @@ def create_stripe_checkout_session(item_id: str = Body(...),
 def stripe_webhook(request: Request, stripe_signature: str = Header(None)):
     try:
         event = stripe.Webhook.construct_event(
-            payload=bytes.decode(await request.body()),
+            payload=bytes.decode(request.body()),
             sig_header=stripe_signature,
             secret=STRIPE_WEBHOOK_SECRET_KEY)
         bill = event.data.get('object')
