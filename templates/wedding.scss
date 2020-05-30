@@ -26,6 +26,8 @@ li.card {
 
     img {
         max-height: 22.5rem;
+        width: 100%;
+        object-fit: cover;
     }
 }
 
