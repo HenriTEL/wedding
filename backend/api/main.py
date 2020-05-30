@@ -1,6 +1,7 @@
 import os
 import logging
 import json
+
 import stripe
 from fastapi import FastAPI, Request, Header, Body
 
@@ -25,12 +26,12 @@ async def hello():
 
 
 @app.get('/wedding-list')
-def wedding_list():
+async def wedding_list():
     return list(wl.values())
 
 
 @app.post('/stripe-checkout-session')
-def create_stripe_checkout_session(item_id: str = Body(...),
+async def create_stripe_checkout_session(item_id: str = Body(...),
                                    amount_cent: int = Body(...),
                                    contributor_name: str = Body(...),
                                    message: str = Body(...)):
@@ -58,10 +59,10 @@ def create_stripe_checkout_session(item_id: str = Body(...),
 
 
 @app.post('/stripe-webhook')
-def stripe_webhook(request: Request, stripe_signature: str = Header(None)):
+async def stripe_webhook(request: Request, stripe_signature: str = Header(None)):
     try:
         event = stripe.Webhook.construct_event(
-            payload=bytes.decode(request.body()),
+            payload=await request.body(),
             sig_header=stripe_signature,
             secret=STRIPE_WEBHOOK_SECRET_KEY)
         bill = event.data.get('object')
@@ -69,6 +70,7 @@ def stripe_webhook(request: Request, stripe_signature: str = Header(None)):
         logging.error(e)
         return {'error': str(e)}, 403
 
+    logging.info("Received Stripe webhook event: id=%s, type=%s", event.id, event.type)
     if event.type == 'checkout.session.completed' and event.id not in contributions:
         # See https://stripe.com/docs/api/checkout/sessions/object
         customer = stripe.Customer.retrieve(bill['customer'])
