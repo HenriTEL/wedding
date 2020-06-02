@@ -19,7 +19,7 @@ block content
   h1.header Itinéraire
   p
     each direction in directions
-      a(href="#{direction.link}") #{direction.text}
+      a(href=`${direction.link}`) #{direction.text}
       br
   img.img-fluid(src='/img/direction.jpg')
 
@@ -29,5 +29,5 @@ block content
     | Nous ajoutons cette liste pour vous aider à trouver un hébergement :
     br
     each accomodation in accomodations
-      a(href="#{accomodation.link}") #{accomodation.text}
+      a(href=`${accomodation.link}`) #{accomodation.text}
       br
