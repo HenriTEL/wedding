@@ -1,6 +1,5 @@
 # TODO
-* Check mobile
-* Add licence
+* Switch to http2
 * Add ci + tests
 
 **Improvements**  
