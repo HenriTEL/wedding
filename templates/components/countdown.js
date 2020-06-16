@@ -15,12 +15,12 @@ function update_countdown() {
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
   
     // Display the result in the element with id="demo"
-    document.getElementById("count-down").innerHTML = `La réponse dans ${days} jour${days > 1 ? 's' : ''} ${hours} heure${hours > 1 ? 's' : ''} ${minutes} minute${minutes > 1 ? 's' : ''} ${seconds} seconde${seconds > 1 ? 's' : ''}`;
+    document.getElementById("count-down").innerHTML = `Mariés dans ${days} jour${days > 1 ? 's' : ''} ${hours} heure${hours > 1 ? 's' : ''} ${minutes} minute${minutes > 1 ? 's' : ''} ${seconds} seconde${seconds > 1 ? 's' : ''}`;
   
     // If the count down is finished, write some text
     if (distance < 0) {
       clearInterval(x);
-      document.getElementById("count-down").innerHTML = "La réponse maintenant !";
+      document.getElementById("count-down").innerHTML = "On se marie maintenant !";
     }
   }
 // Initialize count down

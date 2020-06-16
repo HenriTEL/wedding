@@ -1,11 +1,7 @@
 extends components/main.pug
 
 block content
-  .media.mb-2
-    img.mr-3(src='/img/empty-bottle.png')
-    .media-body
-      h1 Mariés ou pendus ?
-  h3#count-down.mb-4
+  h2#count-down.mb-4
   ul.d-flex.justify-content-between.flex-wrap
     li.card
       a(href="/apropos")
@@ -28,5 +24,8 @@ block content
         .card-body
             h5.card-title.text-body Liste de mariage
 block additional-scripts
+  script#captcha-script(src=`https://www.google.com/recaptcha/api.js?render=${reCAPTCHA_site_key}` data-reCAPTCHA-site-key=`${reCAPTCHA_site_key}`)
+  script
+    include components/captcha.js
   script
     include components/countdown.js
