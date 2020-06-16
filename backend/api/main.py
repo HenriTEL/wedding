@@ -3,6 +3,7 @@ import logging
 import os
 
 from fastapi import FastAPI, Request, Header, Body
+from fastapi.responses import PlainTextResponse
 import requests
 import stripe
 
@@ -28,14 +29,14 @@ async def hello():
     return "Hello, I'm the wedding API."
 
 
-@app.get('/carpooling-url/{reCAPTCHA_token}')
+@app.get('/carpooling-url/{reCAPTCHA_token}', response_class=PlainTextResponse)
 async def carpooling_url(reCAPTCHA_token):
     res = requests.post('https://www.google.com/recaptcha/api/siteverify',
                         data={'secret': RECAPTCHA_SECRET_KEY,
                               'response': reCAPTCHA_token}).json()
     if res['success']:
         return CARPOOLING_URL
-    return {'error': 'The reCAPTCHA verification failed.'}, 403
+    return 'The reCAPTCHA verification failed.', 403
 
 
 @app.get('/wedding-list')

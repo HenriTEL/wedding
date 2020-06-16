@@ -2,6 +2,12 @@ var reCAPTCHA_site_key = document.getElementById("captcha-script").getAttribute(
 
 grecaptcha.ready(function() {
     grecaptcha.execute(reCAPTCHA_site_key, {action: 'submit'}).then(function(token) {
-        console.log('SUCCESSSSSSSSSSSSSSSS')
+        fetch(`api/carpooling-url/${token}`)
+            .then(function(response) {
+                return response.text();
+            })
+            .then(function(carpooling_url) {
+                document.getElementById("carpooling").setAttribute('href', carpooling_url);
+            });
     });
 });
