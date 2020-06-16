@@ -1,13 +1,16 @@
-import os
-import logging
 import json
+import logging
+import os
 
-import stripe
 from fastapi import FastAPI, Request, Header, Body
+import requests
+import stripe
 
 from .models import WeddingList, Contributions
 
 WEBSITE_HOST = os.getenv('WEBSITE_HOST')
+CARPOOLING_URL = os.getenv('CARPOOLING_URL')
+RECAPTCHA_SECRET_KEY = os.getenv('RECAPTCHA_SECRET_KEY')
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
 STRIPE_WEBHOOK_SECRET_KEY = os.getenv('STRIPE_WEBHOOK_SECRET_KEY')
 CURRENCY = os.getenv('CURRENCY')
@@ -23,6 +26,16 @@ wl = WeddingList(contributions)
 @app.get('/')
 async def hello():
     return "Hello, I'm the wedding API."
+
+
+@app.get('/carpooling-url/{reCAPTCHA_token}')
+async def carpooling_url(reCAPTCHA_token):
+    res = requests.post('https://www.google.com/recaptcha/api/siteverify',
+                        data={'secret': RECAPTCHA_SECRET_KEY,
+                              'response': reCAPTCHA_token}).json()
+    if res['success']:
+        return CARPOOLING_URL
+    return {'error': 'The reCAPTCHA verification failed.'}, 403
 
 
 @app.get('/wedding-list')
