@@ -7,7 +7,7 @@ services:
     volumes:
     - ./backend/api:/app/app:ro
     - ./backend/db:/db
-    command: [/start-reload.sh]
+    command: ["app.main:app", "--reload", "--bind", "0.0.0.0:80"]
     env_file: secrets.env
     environment:
     - MAX_WORKERS=1
