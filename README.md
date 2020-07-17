@@ -1,5 +1,4 @@
 # TODO
-* Switch to http2
 * Add ci + tests
 
 **Improvements**  
