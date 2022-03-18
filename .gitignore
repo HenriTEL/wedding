@@ -1,6 +1,7 @@
 # Static
 static/img/wedding-list/
 static/img/about-us/
+!static/img/about-us/1.example.jpg
 templates/about-us-content.pug
 *.css
 *.html

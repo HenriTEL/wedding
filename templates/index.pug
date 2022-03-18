@@ -18,11 +18,7 @@ block content
         img.card-img-top(src='/img/list.png')
         .card-body
             h5.card-title.text-body Liste de mariage
-    li.card
-      a#carpooling
-        img.card-img-top(src='/img/carpooling.png')
-        .card-body
-            h5.card-title.text-body Covoiturage
+
 block additional-scripts
   script#captcha-script(src=`https://www.google.com/recaptcha/api.js?render=${reCAPTCHA_site_key}` data-reCAPTCHA-site-key=`${reCAPTCHA_site_key}`)
   script

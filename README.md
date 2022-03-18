@@ -27,11 +27,14 @@ wget https://github.com/twbs/bootstrap/archive/v4.4.1.zip \
 cp vars.example.pug vars.pug
 cp templates/about-us-content.example.pug templates/about-us-content.pug
 cp backend/db/wedding-list.example.csv backend/db/wedding-list.csv
+cp static/img/about-us.example.jpg static/img/about-us.jpg
+cp static/img/about-us/1.example.jpg static/img/about-us/1.jpg
 cp secrets.example.env secrets.env
 ```
 
 Set your secrets in `secrets.env` (use your stripe test key).  
-Also set `STRIPE_PUBLIC_KEY` in `vars.pug`.
+Also set `STRIPE_PUBLIC_KEY` in `vars.pug`.  
+reCAPTCHA is used to avoid bot scrapping. You can leave it if you don't care.  
 
 ### Run the dev server
 
@@ -47,11 +50,15 @@ Go to <http://localhost:8080/>
 
 ## Customize
 
-**Content**  
-Most content can be customized by setting values in `vars.pug`.
+General content is in `vars.pug`.  
+Images are in `static/img/`.  
+About us image names must be numbers (1.jpg, 2.jpg, etc.) and you must set the total number of images in `vars.pug`.  
+Update `templates/components/countdown.js` for an accurate date.
 
-**Wedding list**  
-Make your wedding list spreadsheet at `backend/db/wedding-list.csv`.  
+### Wedding list
+
+:warning: Avoid deleting/renaming existing items as it will mess up the contributions count.  
+Make your wedding list spreadsheet at `backend/db/wedding-list.csv`. You can also download a Google Sheet.  
 It must follow the format of `backend/db/wedding-list.example.csv`, the first line is ignored.  
 Download your wedding list images by running `./dl_wl_imgs.py`.
 
