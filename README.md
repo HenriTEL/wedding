@@ -8,6 +8,8 @@ Install [docker](https://docs.docker.com/get-docker/) and [docker-compose](https
 
 ### Setup
 
+For a debian-like host:
+
 ```bash
 # From the root dir of this repo, run
 sudo apt install -y nodejs npm wget unzip
