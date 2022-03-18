@@ -1,5 +1,5 @@
 // Set the date we're counting down to
-var countDownDate = new Date("Sept 12, 2020 16:30:00").getTime();
+var countDownDate = new Date("March 18, 2222 16:30:00").getTime();
 function update_countdown() {
 
     // Get today's date and time
@@ -14,14 +14,15 @@ function update_countdown() {
     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
   
-    // Display the result in the element with id="demo"
-    document.getElementById("count-down").innerHTML = `Mariés dans ${days} jour${days > 1 ? 's' : ''} ${hours} heure${hours > 1 ? 's' : ''} ${minutes} minute${minutes > 1 ? 's' : ''} ${seconds} seconde${seconds > 1 ? 's' : ''}`;
-  
     // If the count down is finished, write some text
-    if (distance < 0) {
-      clearInterval(x);
-      document.getElementById("count-down").innerHTML = "On se marie maintenant !";
+    if (days == -1) {
+      var text = "On se marie aujourd'hui !";
+    } else if (distance < 0) {
+      var text = "On s'est mariés !";
+    } else {
+      var text = `Mariés dans ${days} jour${days > 1 ? 's' : ''} ${hours} heure${hours > 1 ? 's' : ''} ${minutes} minute${minutes > 1 ? 's' : ''} ${seconds} seconde${seconds > 1 ? 's' : ''}`;
     }
+    document.getElementById("count-down").innerHTML = text;
   }
 // Initialize count down
 update_countdown();
