@@ -1,11 +1,6 @@
 # Wedding
 
-A wedding website with a full-featured wedding list.
-
-## Tech
-
-`html`, `css` and `javascript` for content, `python` for the backend (wedding list), [Stripe](stripe.com/) for payments.
-[pug](https://pugjs.org), [sass](https://sass-lang.com), [FastAPI](https://fastapi.tiangolo.com/), [bootstrap](https://getbootstrap.com/).
+A wedding website with a full-featured wedding list using [Stripe](stripe.com/) for payments.
 
 ## Dev Quickstart
 
