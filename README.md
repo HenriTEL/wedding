@@ -51,6 +51,7 @@ Go to <http://localhost:8080/>
 ## Customize
 
 General content is in `vars.pug`.  
+Go to `templates/wedding.scss` to change the main color.  
 Images are in `static/img/`.  
 About us image names must be numbers (1.jpg, 2.jpg, etc.) and you must set the total number of images in `vars.pug`.  
 Update `templates/components/countdown.js` for an accurate date.
