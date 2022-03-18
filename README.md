@@ -1,20 +1,18 @@
-# TODO
-* Add ci + tests
-
-**Improvements**  
-* Refactor js components
-* Rewrite js in typescript
-
 # Wedding
-A static wedding website and a **wedding list** app based on [bootstrap](https://getbootstrap.com/).  
-Most content take the form of `html` and `css` files generated using [pug](https://pugjs.org) and [sass](https://sass-lang.com) for simplicity.  
-The wedding list app is based on [FastAPI](https://fastapi.tiangolo.com/).
+
+A wedding website with a full-featured wedding list. app based on [bootstrap](https://getbootstrap.com/).
+
+## Tech
+
+`html`, `css` and `javascript` for content, `python` for the backend (wedding list), [Stripe](stripe.com/) for payments.
+[pug](https://pugjs.org), [sass](https://sass-lang.com), [FastAPI](https://fastapi.tiangolo.com/), [bootstrap](https://getbootstrap.com/).
 
 ## Dev Quickstart
-**Prerequisites**  
+
 Install [docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose).  
 
-**Installation**
+### Setup
+
 ```bash
 # From the root dir of this repo, run
 sudo apt install -y nodejs npm wget unzip
@@ -29,17 +27,19 @@ wget https://github.com/twbs/bootstrap/archive/v4.4.1.zip \
   && rm v4.4.1.zip
 ```
 
-**Start developping**
+### Run the dev server
+
 ```bash
 # Run the following 3 processes (web server, pug and sass compilers) in different shells
 docker-compose up
 pug --pretty --watch templates --out static
 sass --watch --no-source-map templates:static 
 ```
+
 Go to http://localhost:8080/
 
-
 ## Customize
+
 **Content**  
 Most content can be customized by setting values in `vars.pug`.
 
