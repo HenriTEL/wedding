@@ -1,6 +1,6 @@
 # Wedding
 
-A wedding website with a full-featured wedding list. app based on [bootstrap](https://getbootstrap.com/).
+A wedding website with a full-featured wedding list.
 
 ## Tech
 
