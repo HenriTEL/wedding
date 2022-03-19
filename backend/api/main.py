@@ -10,7 +10,6 @@ import stripe
 from .models import WeddingList, Contributions
 
 WEBSITE_HOST = os.getenv('WEBSITE_HOST')
-CARPOOLING_URL = os.getenv('CARPOOLING_URL')
 RECAPTCHA_SECRET_KEY = os.getenv('RECAPTCHA_SECRET_KEY')
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
 STRIPE_WEBHOOK_SECRET_KEY = os.getenv('STRIPE_WEBHOOK_SECRET_KEY')
@@ -27,16 +26,6 @@ wl = WeddingList(contributions)
 @app.get('/')
 async def hello():
     return "Hello, I'm the wedding API."
-
-
-@app.get('/carpooling-url/{reCAPTCHA_token}', response_class=PlainTextResponse)
-async def carpooling_url(reCAPTCHA_token):
-    res = requests.post('https://www.google.com/recaptcha/api/siteverify',
-                        data={'secret': RECAPTCHA_SECRET_KEY,
-                              'response': reCAPTCHA_token}).json()
-    if res['success']:
-        return CARPOOLING_URL
-    return 'The reCAPTCHA verification failed.', 403
 
 
 @app.get('/wedding-list')
@@ -90,8 +79,8 @@ async def stripe_webhook(request: Request, stripe_signature: str = Header(None))
         customer = stripe.Customer.retrieve(bill['customer'])
         contribution = {
             'amount': bill['display_items'][0]['amount'],
-            'contributor_email': customer['email'],
-            'contributor_name': bill['metadata']['contributor_name'],
+            'contributor_email': customer.get('email', 'anonymous'),
+            'contributor_name': bill['metadata'].get('contributor_name', 'Anonymous'),
             'item_id': bill['display_items'][0]['custom']['name'],
             'message': bill['display_items'][0]['custom']['description'],
         }
