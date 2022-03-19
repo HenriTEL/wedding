@@ -51,8 +51,7 @@ Go to <http://localhost:8080/>
 
 ### Testing
 
-Use 4242 4242 4242 4242, any future date and any 3 digit CVC to test payments.  
-In order to check the stripe webhook (items payments progress bar and contributions file), follow those steps:  
+In order to check the stripe webhook (contributions progress bar), follow those steps:  
 
 1. Install the [stripe cli](https://stripe.com/docs/stripe-cli).  
 2. Run `stripe listen --skip-verify --forward-to localhost:8080/api/stripe-webhook` in a terminal.  
@@ -60,6 +59,7 @@ In order to check the stripe webhook (items payments progress bar and contributi
 4. Reload the server (kill and re-run `docker-compose up`).  
 
 Simulate an event `stripe trigger checkout.session.completed`, reload the weddinf list, check `backend/db/contributions.json`.
+You can also use the credit card 4242 4242 4242 4242, any future date and any 3 digit CVC.  
 
 ## Customize
 
@@ -75,7 +75,9 @@ Setup [payment branding](https://dashboard.stripe.com/settings/branding).
 :warning: Avoid deleting/renaming existing items as it will mess up the contributions count. Use image URLs in the form `http://xxx.com/xxx.jpg` as  much as possible.  
 Make your wedding list spreadsheet at `backend/db/wedding-list.csv`. You can also download a Google Sheet.  
 It must follow the format of `backend/db/wedding-list.example.csv`, the first line is ignored.  
-Download your wedding list images by running `./dl_wl_imgs.py`.
+Download your wedding list images by running `./dl_wl_imgs.py`.  
+
+You can access contributor names, amount and associated messages in the payment tab of your stripe dashboard.
 
 ## Deploy in production
 

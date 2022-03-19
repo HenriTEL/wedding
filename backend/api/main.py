@@ -52,9 +52,11 @@ async def create_stripe_checkout_session(item_id: str = Body(...),
         checkout_session = stripe.checkout.Session.create(
             success_url=f'{WEBSITE_HOST}/liste?checkout_status=success',
             cancel_url=f'{WEBSITE_HOST}/liste?checkout_status=cancel',
+            mode='payment',
             submit_type='donate',
             metadata={'contributor_name': contributor_name},
             payment_method_types=["card"],
+            payment_intent_data={'description': message},
             line_items=[item])
     except Exception as e:
         return {'error': str(e)}, 403
