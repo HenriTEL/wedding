@@ -29,7 +29,8 @@ cp templates/about-us-content.example.pug templates/about-us-content.pug
 cp backend/db/wedding-list.example.csv backend/db/wedding-list.csv
 cp static/img/about-us.example.jpg static/img/about-us.jpg
 cp static/img/about-us/1.example.jpg static/img/about-us/1.jpg
-cp secrets.example.env secrets.env
+cp secrets.example.env secrets.env  
+./dl_wl_imgs.py
 ```
 
 Set your secrets in `secrets.env` (use your [test apikeys](https://dashboard.stripe.com/test/apikeys)).  
@@ -66,7 +67,8 @@ Set general content is in `vars.pug`.
 Go to `templates/wedding.scss` to change the main color.  
 Change images in `static/img/`.  
 Images in about us must be named 1.jpg, 2.jpg, etc. and you must set the sum in `vars.pug`.  
-Update the date in `templates/components/countdown.js` for an accurate countdown.
+Update the date in `templates/components/countdown.js` for an accurate countdown.  
+Setup [payment branding](https://dashboard.stripe.com/settings/branding).
 
 ### Wedding list
 
@@ -77,4 +79,4 @@ Download your wedding list images by running `./dl_wl_imgs.py`.
 
 ## Deploy in production
 
-Set you [stripe webhook](https://dashboard.stripe.com/webhooks).  
+Set you [stripe webhook](https://dashboard.stripe.com/webhooks).

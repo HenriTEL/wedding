@@ -13,7 +13,7 @@ var notifications = document.querySelector('#notifications');
 function init_items_cards(items) {
   let categories = new Set();
   let selected_item = url.searchParams.get('item');
-  for (item of items) {
+  for (let item of items) {
     let item_li = _add_item_li(item);
     categories.add(item.category);
     if (sanitize_str(item.name) == selected_item) {
