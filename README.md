@@ -101,4 +101,5 @@ See `docker-compose.prod.yml` for a prod-ready example.
 6. Make a volume the `/db/` volume for the API, mount it and copy `wedding-list.csv` to it as necessary.  
 7. Restart the API.
 As the wedding list gets updated, don't forget to run `./dl_wl_imgs.py` and to `fly deploy` the nginx proxy.  
+
 :warning: Always copy `wedding-list.csv` only as you may lose `contributions.json` if you copy `db/` entirely.  
