@@ -100,7 +100,7 @@ See `docker-compose.prod.yml` for a prod-ready example.
 4. Add secrets to the fly app corresponding to the API `cat secrets.env | flyctl secrets import`.  
 5. Set custom envs for the API (see `docker-compose.yml`), update `WEBSITE_HOST`, add `SKIP_WL_CHECK` (needed before we copy the wedding list on the volume in the next step).  
 6. Make a volume the `/db/` volume for the API, mount it and copy `wedding-list.csv` to it as necessary.  
-7. Restart the API.
+7. Remove `SKIP_WL_CHECK` and restart the API.  
 As the wedding list gets updated, don't forget to run `./dl_wl_imgs.py` and to `fly deploy` the nginx proxy.  
 
 :warning: Always copy `wedding-list.csv` only as you may lose `contributions.json` if you copy `db/` entirely.  
