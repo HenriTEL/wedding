@@ -80,4 +80,25 @@ You can access contributor names, amount and associated messages in the payment 
 
 ## Deploy in production
 
-Set you [stripe webhook](https://dashboard.stripe.com/webhooks).
+You can deploy on a bare server from any provider (OVH, Hetzner, scaleway, etc.) or deploy containers on fly.io directly (free and setup TLS for you).  
+If you feel adventurous you can also deploy on your home server. In any case, set your [stripe webhook](https://dashboard.stripe.com/webhooks).  
+:bulb: Advice: make regular backups the `/db/` of API.  
+
+### On a bare server
+
+Update `secrets.env` with your live keys.  
+On your server, copy `backend/` and `static/`.  
+Setup TLS (you can use Let's Encrypt cets) and https in nginx conf.  
+See `docker-compose.prod.yml` for a prod-ready example.
+
+### Using fly.io
+
+1. Create an account, launch 2 apps, one from the root, one from `backend/`.  
+2. Update `proxy_pass` for the API with your app name in `nginx.conf`.  
+3. In the backend app, avoid exposing the API directly by removing the `services.ports` sections in your `fly.toml`.  
+4. Add secrets to the fly app corresponding to the API `cat secrets.env | flyctl secrets import`.  
+5. Set custom envs for the API (see `docker-compose.yml`), update `WEBSITE_HOST`, add `SKIP_WL_CHECK` (needed before we copy the wedding list on the volume in the next step).  
+6. Make a volume the `/db/` volume for the API, mount it and copy `wedding-list.csv` to it as necessary.  
+7. Restart the API.
+As the wedding list gets updated, don't forget to run `./dl_wl_imgs.py` and to `fly deploy` the nginx proxy.  
+:warning: Always copy `wedding-list.csv` only as you may lose `contributions.json` if you copy `db/` entirely.  
