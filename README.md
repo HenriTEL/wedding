@@ -72,6 +72,7 @@ Setup [payment branding](https://dashboard.stripe.com/settings/branding).
 ### Wedding list
 
 :warning: Avoid deleting/renaming existing items as it will mess up the contributions count. Use image URLs in the form `http://xxx.com/xxx.jpg` as  much as possible.  
+
 Make your wedding list spreadsheet at `backend/db/wedding-list.csv`. You can also download a Google Sheet.  
 It must follow the format of `backend/db/wedding-list.example.csv`, the first line is ignored.  
 Download your wedding list images by running `./dl_wl_imgs.py`.  
