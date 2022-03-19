@@ -1,9 +1,7 @@
 import csv
 import json
-import logging
 import os
 import unicodedata
-from pathlib import Path
 
 from sortedcollections import ValueSortedDict
 
@@ -35,7 +33,7 @@ class Contributions(dict):
 
 
 class WeddingList(ValueSortedDict):
-    def __init__(self, contributions={}):
+    def __init__(self, contributions={}, skip_wl_check=False):
         super().__init__(price_diff)
         if os.path.isfile(WL_PATH):
             for fields in get_csv_fields(WL_PATH):
@@ -49,7 +47,7 @@ class WeddingList(ValueSortedDict):
                     'image': fields[3].split('/')[-1].rstrip()
                 }
             self._init_contributions(contributions)
-        else:
+        elif not skip_wl_check:
             raise FileNotFoundError(
                 f'{WL_PATH} not found, did you set the right DB_PATH ?')
 
