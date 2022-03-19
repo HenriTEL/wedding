@@ -34,8 +34,7 @@ cp secrets.example.env secrets.env
 ```
 
 Set your secrets in `secrets.env` (use your [test apikeys](https://dashboard.stripe.com/test/apikeys)).  
-Also set `STRIPE_PUBLIC_KEY` in `vars.pug`.  
-reCAPTCHA is used to avoid bot scrapping. You can leave it if you don't care.  
+Also set `STRIPE_PUBLIC_KEY` in `vars.pug`.
 
 ### Run the dev server
 
