@@ -1,5 +1,7 @@
 # Wedding
 
+I archived this project as I don't plan to update it anymore. It should still work until the stripe API it relies on gets deprecated.
+
 A wedding website with a full-featured wedding list using [Stripe](stripe.com/) for payments.
 
 ## Dev Quickstart
